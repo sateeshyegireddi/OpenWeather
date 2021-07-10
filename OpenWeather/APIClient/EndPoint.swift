@@ -17,7 +17,8 @@ enum EndPoint: Hashable {
     case todayForecast
     case latitude
     case longitude
-        
+    case units
+    
     //Five days forecast
     case fiveDaysForecast
 }
@@ -38,7 +39,9 @@ extension EndPoint {
             return "lat"
         case .longitude:
             return "lon"
-    
+        case .units:
+            return "units"
+
         //Five days forecast
         case .fiveDaysForecast:
             return "forecast"

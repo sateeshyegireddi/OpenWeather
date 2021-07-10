@@ -31,6 +31,8 @@ class EndPointTests: XCTestCase {
         XCTAssertNotNil(sut.rawValue, "Latitude should be there.")
         sut = EndPoint.longitude
         XCTAssertNotNil(sut.rawValue, "Longitude should be there.")
+        sut = EndPoint.units
+        XCTAssertNotNil(sut.rawValue, "Units should be there.")
         sut = EndPoint.fiveDaysForecast
         XCTAssertNotNil(sut.rawValue, "Five days forecast should be there.")
     }
@@ -46,6 +48,8 @@ class EndPointTests: XCTestCase {
         XCTAssertNotEqual(sut.rawValue, "empty", "Latitude shouldn't be empty.")
         sut = EndPoint.longitude
         XCTAssertNotEqual(sut.rawValue, "empty", "Longitude shouldn't be empty.")
+        sut = EndPoint.units
+        XCTAssertNotEqual(sut.rawValue, "empty", "Units shouldn't be empty.")
         sut = EndPoint.fiveDaysForecast
         XCTAssertNotEqual(sut.rawValue, "empty", "Five days forecast shouldn't be empty.")
 
