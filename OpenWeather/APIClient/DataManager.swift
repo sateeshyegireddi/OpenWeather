@@ -12,8 +12,8 @@ struct DataManager {}
 
 /// `Fetchable` defines the mandatory functionality for handling success or failure cases of response.
 protocol Fetchable {
-    static func fetchData<T: Codable>(with request: APIRequest,
-                                      handler: @escaping (_ data: T?, _ error: NetworkError?) -> ())
+    func fetchData<T: Codable>(with request: APIRequest,
+                               handler: @escaping (_ data: T?, _ error: NetworkError?) -> ())
 }
 
 extension DataManager: Fetchable {
@@ -24,8 +24,8 @@ extension DataManager: Fetchable {
     ///   - handler: A closure which holds data and error which is received from server.
     ///   - data: A model data of type `T`, which is received from API.
     ///   - error: An error received from service call.
-    static func fetchData<T: Codable>(with request: APIRequest,
-                                      handler: @escaping (_ data: T?, _ error: NetworkError?) -> ()) {
+    func fetchData<T: Codable>(with request: APIRequest,
+                               handler: @escaping (_ data: T?, _ error: NetworkError?) -> ()) {
         APIClient.send(request) { (result: Result<T, NetworkError>) in
             switch result {
             case .success(let data):

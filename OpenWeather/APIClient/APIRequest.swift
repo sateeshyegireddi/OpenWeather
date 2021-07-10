@@ -8,7 +8,7 @@
 import Foundation
 
 /// `HTTPMethod`s for doing CRUD operations on server data.
-enum HTTPMethod {
+enum HTTPMethod: String {
     case GET
     case POST
     case PUT
