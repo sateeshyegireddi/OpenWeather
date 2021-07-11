@@ -12,7 +12,7 @@ import CoreLocation
 class AddLocationViewController: UIViewController {
 
     //MARK: - Outlets
-    @IBOutlet private weak var addLocationMapView: MKMapView!
+    @IBOutlet private weak var bookmarksMapView: MKMapView!
     @IBOutlet private weak var addMarkerButton: UIButton!
     
     //MARK: - Variables
@@ -58,7 +58,7 @@ class AddLocationViewController: UIViewController {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = CLLocationCoordinate2D(latitude: location.latitude,
                                                                longitude: location.longitude)
-                addLocationMapView.addAnnotation(annotation)
+                bookmarksMapView.addAnnotation(annotation)
                 viewModel.updateBookmarkLocation(annotation.coordinate)
             }
         }
@@ -75,7 +75,7 @@ class AddLocationViewController: UIViewController {
         let coordinate = CLLocationCoordinate2DMake(17.385, 78.4867)
         let span = MKCoordinateSpan.init(latitudeDelta: 0.003, longitudeDelta: 0.003)
         let region = MKCoordinateRegion.init(center: coordinate, span: span)
-        addLocationMapView.setRegion(region, animated:true)
+        bookmarksMapView.setRegion(region, animated:true)
     }
     
     //MARK: - Deinit

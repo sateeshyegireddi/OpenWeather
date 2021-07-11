@@ -9,9 +9,13 @@ import UIKit
 
 class CityViewController: UIViewController {
 
+    //MARK: - Variables
+    var location: Location!
+    
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "City"
+        self.title = location.name
     }
 }

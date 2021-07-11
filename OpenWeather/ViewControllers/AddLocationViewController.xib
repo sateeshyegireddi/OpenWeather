@@ -10,8 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddLocationViewController" customModule="OpenWeather" customModuleProvider="target">
             <connections>
-                <outlet property="addLocationMapView" destination="iQ3-Cq-Rzi" id="bCe-g7-I4Q"/>
                 <outlet property="addMarkerButton" destination="YqA-fj-Zrk" id="CAf-ri-66T"/>
+                <outlet property="bookmarksMapView" destination="iQ3-Cq-Rzi" id="bCe-g7-I4Q"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

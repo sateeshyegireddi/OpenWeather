@@ -13,10 +13,13 @@ class AddLocationViewModel {
     //MARK: - Properties
     private(set) var locations = Observable<[Location]>([])
     var bookmarkLocation = Observable<Location?>(nil)
+    private var bookmarkedLocation = BookmarkedLocation()
+    var bookmarkedLocations = Observable<[Location]>([])
     
     //MARK: - Init
     init(_ locations: Observable<[Location]> = .init([])) {
         self.locations = locations
+        bookmarkedLocations.value = bookmarkedLocation.getLocations()
     }
     
     //MARK: - Update
@@ -37,11 +40,20 @@ class AddLocationViewModel {
         self.locations.value = locations
     }
     
-    //MARK: - Save to Local Storage
+    //MARK: - Bookmarked Locations
     func saveBookmarkedLocation() {
-        var bookmarkedLocation = BookmarkedLocation()
         if let location = bookmarkLocation.value {
             bookmarkedLocation.saveLocation(location)
+            bookmarkedLocations.value = bookmarkedLocation.getLocations()
         }
+    }
+
+    func fetchBookmarkedLocations() {
+        bookmarkedLocations.value = bookmarkedLocation.getLocations()
+    }
+    
+    func removeBookmarkedLocation(_ location: Location) {
+        bookmarkedLocation.removeLocation(location)
+        bookmarkedLocations.value = bookmarkedLocation.getLocations()
     }
 }
