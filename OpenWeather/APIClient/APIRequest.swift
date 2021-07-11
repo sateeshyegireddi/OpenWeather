@@ -47,6 +47,11 @@ extension APIRequest {
             URLQueryItem(name: String($0.rawValue), value: String($1))
         }
         
+        //Add API Key to avoid redundancy
+        let item = URLQueryItem(name: EndPoint.appId.rawValue,
+                                value: appID)
+        components.queryItems?.append(item)
+        
         //Create URL from the components
         guard let url = components.url else {
             fatalError("APIRequest.request(with \(baseURL)): Could not get url")
