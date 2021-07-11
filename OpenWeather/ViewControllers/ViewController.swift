@@ -13,7 +13,7 @@ class ViewController: UITabBarController {
         super.viewDidLoad()
 
         //Home Tab
-        let homeViewController = HomeViewController()
+        let homeViewController = HomeViewController.initWithNib()
         let homeNavigationController = UINavigationController(rootViewController: homeViewController)
         homeNavigationController.defaultSettings(with: "Home")
         let homeBarItem = UITabBarItem(title: "Home",
@@ -22,7 +22,7 @@ class ViewController: UITabBarController {
         homeNavigationController.tabBarItem = homeBarItem
         
         //Settings Tab
-        let settingsViewController = SettingsViewController()
+        let settingsViewController = SettingsViewController.initWithNib()
         let settingsNavigationController = UINavigationController(rootViewController: settingsViewController)
         settingsNavigationController.defaultSettings(with: "Settings")
         let settingsBarItem = UITabBarItem(title: "Settings",

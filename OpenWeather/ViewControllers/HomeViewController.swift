@@ -26,8 +26,8 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func addButtonDidTap(_ sender: Any) {
-        let cityViewController = CityViewController(nibName: "CityViewController",
-                                                    bundle: nil)
-        navigationController?.pushViewController(cityViewController, animated: true)
+        let addLocationViewController = AddLocationViewController.initWithNib()
+        navigationController?.pushViewController(addLocationViewController,
+                                                 animated: true)
     }
 }
