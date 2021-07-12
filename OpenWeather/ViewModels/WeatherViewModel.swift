@@ -38,7 +38,12 @@ class WeatherViewModel {
         }
         let feelsLike = "Feels like \(Int(weather.main?.feelsLike ?? 0.0)) º"
         let minMaxTemparature = "Day \(Int(weather.main?.tempMax ?? 0.0)) º • Night \(Int(weather.main?.tempMin ?? 0.0)) º"
-        let rainPercent = "\(Int(weather.rain?.the1H ?? weather.rain?.the3H ?? 0))%"
+        var rainPercent = 0
+        if let the1H = weather.rain?.the1H {
+            rainPercent = Int(the1H)
+        } else if let the3H = weather.rain?.the3H {
+            rainPercent = Int(the3H)
+        }
         let windDirection = weather.wind?.deg?.toWindDirection() ?? ""
         
         // Assign it to model
@@ -49,7 +54,7 @@ class WeatherViewModel {
         weatherFormatted.image = image
         weatherFormatted.feelsLike = feelsLike
         weatherFormatted.minMaxTemparature = minMaxTemparature
-        weatherFormatted.rainPercent = rainPercent
+        weatherFormatted.rainPercent = "\(rainPercent)%"
         weatherFormatted.windDirection = windDirection
         return weatherFormatted
     }

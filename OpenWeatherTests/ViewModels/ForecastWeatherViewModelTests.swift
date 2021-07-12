@@ -1,5 +1,5 @@
 //
-//  WeatherViewModelTests.swift
+//  ForecastWeatherViewModelTests.swift
 //  OpenWeatherTests
 //
 //  Created by Sateesh Yemireddi on 7/12/21.
@@ -7,29 +7,32 @@
 
 import XCTest
 
-class WeatherViewModelTests: XCTestCase {
+class ForecastWeatherViewModelTests: XCTestCase {
     
     //MARK: - Variables
-    var sut: WeatherViewModel!
-    var dataManager: MockDataManager<Weather>!
+    var sut: ForecastWeatherViewModel!
+    var dataManager: MockDataManager<ForecastWeather>!
     
     //MARK: - Setup
     override func setUp() {
         super.setUp()
         dataManager = MockDataManager()
-        sut = WeatherViewModel(dataManager: dataManager)
+        sut = ForecastWeatherViewModel(dataManager: dataManager)
     }
     
     //MARK: - Tests
-    func testFetchWeather() {
+    func testFetchFetchWeather() {
         
         //Given
-        let emptyModel = Weather(weather: nil, base: nil, main: nil, visibility: nil,
-                                 wind: nil, rain: nil, date: nil, id: nil, name: nil)
+        let emptyWeatherModel = Weather(weather: nil, base: nil, main: nil,
+                                        visibility: nil, wind: nil, rain: nil,
+                                        date: nil, id: nil, name: nil)
+        let emptyModel = ForecastWeather(code: nil, message: nil, count: nil,
+                                         list: [emptyWeatherModel])
         dataManager.model = emptyModel
         
         //When
-        sut.fetchWeather()
+        sut.fetchForecastWeather()
         
         //Then
         XCTAssertTrue(dataManager.isDataFetched, "Data should be fetched")
@@ -41,7 +44,7 @@ class WeatherViewModelTests: XCTestCase {
         let error = NetworkError.noData
         
         //When
-        sut.fetchWeather()
+        sut.fetchForecastWeather()
         dataManager.fetchWithError(error)
         
         //Then
@@ -50,24 +53,27 @@ class WeatherViewModelTests: XCTestCase {
     }
     
     
-    func testSuccessfulFetchWeather() {
+    func testSuccessfulFetchForecastWeather() {
         
         //Given
-        let weather: Weather = FileLoader.readDataFromFile(at: "weather_data")
-        dataManager.model = weather
+        let forecastWeather: ForecastWeather = FileLoader.readDataFromFile(at: "forecast_weather_data")
+        dataManager.model = forecastWeather
         let expectation = XCTestExpectation(description: "Reload tableView triggered")
         sut.shouldReloadData.bind { success in
             if success { expectation.fulfill() }
         }
         
         //When
-        sut.fetchWeather()
+        sut.fetchForecastWeather()
         dataManager.fetchWithSuccess()
         
         //Then
-        let temparature = "\(Int(weather.main?.temparature ?? 0.0)) º"
-        XCTAssertEqual(sut.weatherFormatted.value?.temparature, temparature)
-        
+        XCTAssertTrue(forecastWeather.list?.count ?? 0 > 0, "Forecast weather data should be there.")
+        let weather = forecastWeather.list?[0]
+        XCTAssertEqual(weather?.weather?[0].id, 500, "Weather ids should be equal.")
+        XCTAssertEqual(weather?.wind?.deg, 244, "Weather wind degrees should be equal.")
+        XCTAssertEqual(weather?.main?.temparature, 25.3, "Weather temp.s should be equal.")
+
         wait(for: [expectation], timeout: 1.0)
     }
     
@@ -82,7 +88,7 @@ class WeatherViewModelTests: XCTestCase {
         }
         
         //When
-        sut.fetchWeather()
+        sut.fetchForecastWeather()
         
         //Assert
         XCTAssert(loading)
@@ -96,17 +102,9 @@ class WeatherViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    func testFormattedWeather() {
-        let weather: Weather = FileLoader.readDataFromFile(at: "weather_data")
-        let weatherFormatted = sut.formatWeather(weather)
-        let temparature = "\(Int(weather.main?.temparature ?? 0.0)) º"
-        XCTAssertEqual(weatherFormatted.temparature, temparature, "Both temp.s should be equal.")
-    }
-    
     //MARK: - Tear down
     override func tearDown() {
         super.tearDown()
         sut = nil
     }
 }
-

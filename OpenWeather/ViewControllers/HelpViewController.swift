@@ -18,8 +18,10 @@ class HelpViewController: UIViewController {
         super.viewDidLoad()
 
         //Setup
-        let htmlFile = Bundle.main.path(forResource: "help", ofType: "html")
-        let html = try? String(contentsOfFile: htmlFile!, encoding: String.Encoding.utf8)
+        let htmlFile = Bundle.main.path(forResource: "help",
+                                        ofType: "html")
+        let html = try? String(contentsOfFile: htmlFile!,
+                               encoding: .utf8)
         helpWebView.loadHTMLString(html!, baseURL: nil)
     }
 }
