@@ -18,12 +18,14 @@ class WeatherViewModel {
     private var location = Location()
     var weatherFormatted = Observable<WeatherFormatted?>(nil)
     @LocalStorage(key: "units_type") var units: String? = nil
+    var previousUnits = Observable<String>("")
 
     //MARK: - Init
     init(dataManager: Fetchable = DataManager(),
          location: Location = Location()) {
         self.dataManager = dataManager
         self.location = location
+        previousUnits.value = units ?? ""
     }
     
     func formatWeather(_ weather: Weather) -> WeatherFormatted {
@@ -62,6 +64,12 @@ class WeatherViewModel {
         weatherFormatted.windDirection = windDirection
         weatherFormatted.date = date
         return weatherFormatted
+    }
+    
+    func updatePreviousUnits() {
+        if let newUnits = units, previousUnits.value != newUnits {
+            previousUnits.value = newUnits
+        }
     }
 }
 

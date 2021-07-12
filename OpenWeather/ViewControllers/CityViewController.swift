@@ -63,6 +63,10 @@ class CityViewController: UIViewController {
             }
         }
         
+        viewModel.previousUnits.bind { [unowned self] _ in
+            self.fetchWeather()
+        }
+        
         //ForecastWeatherViewModel's binding
         forecastViewModel.isLoading.bind { [unowned self] (isLoading) in
             if isLoading { self.presentActivity() }
@@ -90,6 +94,11 @@ class CityViewController: UIViewController {
         maxMinTemparatureLabel.text = weather.minMaxTemparature
         rainPercentageLabel.text = weather.rainPercent
         windDirectionLabel.text = weather.windDirection
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.updatePreviousUnits()
     }
     
     override func viewDidLayoutSubviews() {
