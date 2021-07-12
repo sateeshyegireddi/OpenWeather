@@ -76,4 +76,8 @@ struct BookmarkedLocation {
             savedLocationsData = data
         }
     }
+    
+    mutating func removeAll() {
+        savedLocationsData = nil
+    }
 }

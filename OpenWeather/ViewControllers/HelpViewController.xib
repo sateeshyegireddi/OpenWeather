@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HelpViewController" customModule="OpenWeather" customModuleProvider="target">
             <connections>
                 <outlet property="helpWebView" destination="Jih-Sb-5Z7" id="aiF-ly-OJ1"/>
+                <outlet property="resetDataButton" destination="g3p-eM-969" id="AX0-ZO-CXu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,21 +20,70 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jih-Sb-5Z7">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                    <wkWebViewConfiguration key="configuration">
-                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                        <wkPreferences key="preferences"/>
-                    </wkWebViewConfiguration>
-                </wkWebView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Vas-06-Ybo">
+                    <rect key="frame" x="20" y="64" width="374" height="778"/>
+                    <subviews>
+                        <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jih-Sb-5Z7">
+                            <rect key="frame" x="0.0" y="0.0" width="374" height="608"/>
+                            <wkWebViewConfiguration key="configuration">
+                                <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                <wkPreferences key="preferences"/>
+                            </wkWebViewConfiguration>
+                        </wkWebView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dby-Le-dxE">
+                            <rect key="frame" x="0.0" y="620" width="374" height="30"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="sAj-6L-pKy">
+                            <rect key="frame" x="0.0" y="662" width="374" height="59"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Units" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VsV-9i-HIl">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="20"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9Wd-tI-XIW">
+                                    <rect key="frame" x="0.0" y="28" width="374" height="32"/>
+                                    <segments>
+                                        <segment title="Metric"/>
+                                        <segment title="Imperial"/>
+                                    </segments>
+                                    <connections>
+                                        <action selector="unitsTypeChanged:" destination="-1" eventType="valueChanged" id="f2b-1V-77b"/>
+                                    </connections>
+                                </segmentedControl>
+                            </subviews>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3p-eM-969">
+                            <rect key="frame" x="0.0" y="733" width="374" height="45"/>
+                            <color key="backgroundColor" systemColor="systemBlueColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="Rot-sq-f32"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                            <state key="normal" title="Reset Data">
+                                <color key="titleColor" systemColor="systemBackgroundColor"/>
+                            </state>
+                            <state key="selected" title="Bookmark Location">
+                                <color key="titleColor" systemColor="systemBackgroundColor"/>
+                            </state>
+                            <connections>
+                                <action selector="resetDataButtonTapped:" destination="-1" eventType="touchUpInside" id="7YL-yT-8rf"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="Jih-Sb-5Z7" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="Cyz-zA-6on"/>
-                <constraint firstItem="Jih-Sb-5Z7" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="N9a-Bu-w7I"/>
-                <constraint firstItem="Jih-Sb-5Z7" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="cp1-UW-IeG"/>
-                <constraint firstItem="Jih-Sb-5Z7" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="mdA-wc-S59"/>
+                <constraint firstItem="Vas-06-Ybo" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="26C-3k-edC"/>
+                <constraint firstItem="Vas-06-Ybo" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-20" id="I8a-1T-sif"/>
+                <constraint firstItem="Vas-06-Ybo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="jlf-fE-1ul"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Vas-06-Ybo" secondAttribute="trailing" constant="20" id="pZZ-gm-kLB"/>
             </constraints>
             <point key="canvasLocation" x="-97.101449275362327" y="87.723214285714278"/>
         </view>
@@ -41,6 +91,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

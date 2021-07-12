@@ -17,7 +17,8 @@ class WeatherViewModel {
     var shouldReloadData = Observable<Bool>(false)
     private var location = Location()
     var weatherFormatted = Observable<WeatherFormatted?>(nil)
-    
+    @LocalStorage(key: "units_type") var units: String? = nil
+
     //MARK: - Init
     init(dataManager: Fetchable = DataManager(),
          location: Location = Location()) {
@@ -38,13 +39,16 @@ class WeatherViewModel {
         }
         let feelsLike = "Feels like \(Int(weather.main?.feelsLike ?? 0.0)) º"
         let minMaxTemparature = "Day \(Int(weather.main?.tempMax ?? 0.0)) º • Night \(Int(weather.main?.tempMin ?? 0.0)) º"
-        var rainPercent = 0
+        var rainPercent: Int = 0
         if let the1H = weather.rain?.the1H {
-            rainPercent = Int(the1H)
+            rainPercent = Int(the1H * 100)
         } else if let the3H = weather.rain?.the3H {
-            rainPercent = Int(the3H)
+            rainPercent = Int(the3H * 100)
+        } else {
+            rainPercent = 0
         }
         let windDirection = weather.wind?.deg?.toWindDirection() ?? ""
+        let date = weather.date?.getDateStringFromUnixTime() ?? ""
         
         // Assign it to model
         var weatherFormatted = WeatherFormatted()
@@ -56,6 +60,7 @@ class WeatherViewModel {
         weatherFormatted.minMaxTemparature = minMaxTemparature
         weatherFormatted.rainPercent = "\(rainPercent)%"
         weatherFormatted.windDirection = windDirection
+        weatherFormatted.date = date
         return weatherFormatted
     }
 }
@@ -67,7 +72,7 @@ extension WeatherViewModel {
         var request = WeatherRequest()
         request.parameters = [.latitude: "\(location.latitude)",
                               .longitude: "\(location.longitude)",
-                              .units: "metric"]
+                              .units: Unit(rawValue: units ?? "")?.rawValue ?? ""]
         
         //Send data to server
         isLoading.value = true

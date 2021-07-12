@@ -24,7 +24,7 @@ class ViewController: UITabBarController {
         //Help Tab
         let helpViewController = HelpViewController.initWithNib()
         let helpNavigationController = UINavigationController(rootViewController: helpViewController)
-        helpNavigationController.defaultSettings(with: "Settings")
+        helpNavigationController.defaultSettings(with: "Help")
         let helpBarItem = UITabBarItem(title: "Help",
                                            image: UIImage(named: "icon-help"),
                                            selectedImage: UIImage(named: "icon-help-selected"))

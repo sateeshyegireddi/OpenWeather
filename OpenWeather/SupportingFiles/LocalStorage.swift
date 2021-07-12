@@ -21,7 +21,11 @@ import Foundation
             return value ?? defaultValue
         }
         set {
-            storage.setValue(newValue, forKey: key)
+            if let optional = newValue as? AnyOptional, optional.isNil {
+                storage.removeObject(forKey: key)
+            } else {
+                storage.setValue(newValue, forKey: key)
+            }
         }
     }
     
@@ -39,4 +43,12 @@ extension LocalStorage where Value: ExpressibleByNilLiteral {
     init(key: String, storage: UserDefaults = .standard) {
         self.init(wrappedValue: nil, key: key, storage: storage)
     }
+}
+
+private protocol AnyOptional {
+    var isNil: Bool { get }
+}
+
+extension Optional: AnyOptional {
+    var isNil: Bool { self == nil }
 }

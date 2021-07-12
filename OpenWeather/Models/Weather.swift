@@ -94,4 +94,5 @@ struct WeatherFormatted {
     var minMaxTemparature: String = ""
     var rainPercent: String = ""
     var windDirection: String = ""
+    var date: String = ""
 }

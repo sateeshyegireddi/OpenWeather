@@ -25,7 +25,7 @@ class APIRequestTests: XCTestCase {
         XCTAssertNotNil(request.httpMethod, "HTTP Method should be there.")
         XCTAssertEqual(request.httpMethod, HTTPMethod.GET.rawValue, "HTTP Methods should be same.")
         XCTAssertNotNil(request.url, "URL should be there.")
-        XCTAssertEqual(request.url?.absoluteString, "http://api.openweathermap.org/data/2.5/weather?", "URL should be there.")
+        XCTAssertEqual(request.url?.absoluteString, "http://api.openweathermap.org/data/2.5/weather?appid=fae7190d7e6433ec3a45285ffcf55c86", "URL should be there.")
         XCTAssertNil(request.httpBody, "There is no body for the request.")
         XCTAssertNotNil(request.allHTTPHeaderFields, "Header Fields should be there.")
     }

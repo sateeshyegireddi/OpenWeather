@@ -18,7 +18,8 @@ class ForecastWeatherViewModel {
     private var location = Location()
     var weathersFormatted = Observable<[WeatherFormatted]>([])
     private var weatherViewModel = WeatherViewModel()
-    
+    @LocalStorage(key: "units_type") var units: String? = nil
+
     //MARK: - Init
     init(dataManager: Fetchable = DataManager(),
          location: Location = Location()) {
@@ -34,7 +35,7 @@ extension ForecastWeatherViewModel {
         var request = WeatherRequest()
         request.parameters = [.latitude: "\(location.latitude)",
                               .longitude: "\(location.longitude)",
-                              .units: "metric"]
+                              .units: Unit(rawValue: units ?? "")?.rawValue ?? ""]
         
         //Send data to server
         isLoading.value = true
