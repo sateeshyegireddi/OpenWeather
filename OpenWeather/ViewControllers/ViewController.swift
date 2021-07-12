@@ -21,17 +21,17 @@ class ViewController: UITabBarController {
                                        selectedImage: UIImage(named: "icon-home-selected"))
         homeNavigationController.tabBarItem = homeBarItem
         
-        //Settings Tab
-        let settingsViewController = SettingsViewController.initWithNib()
-        let settingsNavigationController = UINavigationController(rootViewController: settingsViewController)
-        settingsNavigationController.defaultSettings(with: "Settings")
-        let settingsBarItem = UITabBarItem(title: "Settings",
-                                           image: UIImage(named: "icon-settings"),
-                                           selectedImage: UIImage(named: "icon-settings-selected"))
-        settingsNavigationController.tabBarItem = settingsBarItem
+        //Help Tab
+        let helpViewController = HelpViewController.initWithNib()
+        let helpNavigationController = UINavigationController(rootViewController: helpViewController)
+        helpNavigationController.defaultSettings(with: "Settings")
+        let helpBarItem = UITabBarItem(title: "Help",
+                                           image: UIImage(named: "icon-help"),
+                                           selectedImage: UIImage(named: "icon-help-selected"))
+        helpNavigationController.tabBarItem = helpBarItem
         
         //Set Viewcontrollers
-        self.viewControllers = [homeNavigationController, settingsNavigationController]
+        self.viewControllers = [homeNavigationController, helpNavigationController]
     }
 }
 

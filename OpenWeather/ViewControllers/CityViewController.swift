@@ -29,6 +29,7 @@ class CityViewController: UIViewController {
         
         //Setup initial title
         self.title = location.name
+        viewModel = WeatherViewModel(location: location)
         
         //Bind data to UI
         bindDataToUI()
