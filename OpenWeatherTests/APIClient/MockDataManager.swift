@@ -9,27 +9,29 @@ import Foundation
 import XCTest
 @testable import OpenWeather
 
-class MockDataManager<T: Codable> {
+class MockDataManager<U: Codable>: Fetchable {
     
     //MARK: - Variables
-    var handler: ((T?, NetworkError?) -> ())!
+    var handler: ((U?, NetworkError?) -> ())!
     var isDataFetched = false
+    var model: U? = nil
     
     //MARK: - Success
-    func fetchWithSuccess(_ data: T?) {
-        handler(data, nil)
+    func fetchWithSuccess() {
+        handler(model, nil)
     }
     
     //MARK: - Failure
     func fetchWithError(_ error: NetworkError?) {
         handler(nil, error)
     }
-}
-
-extension MockDataManager: Fetchable {
+    
+    //MARK: - API
     func fetchData<T: Codable>(with request: APIRequest,
                                handler: @escaping (_ data: T?, _ error: NetworkError?) -> ()) {
         isDataFetched = true
-        self.handler = handler as? (Codable?, NetworkError?) -> ()
+        self.handler = { (data: U?, error: NetworkError?) in
+            handler(data as? T, error)
+        }
     }
 }

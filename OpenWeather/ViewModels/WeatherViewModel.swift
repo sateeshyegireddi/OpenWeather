@@ -11,7 +11,7 @@ class WeatherViewModel {
     
     //MARK: - Variables
     private var weather = Observable<Weather?>(nil)
-    private var dataManager = DataManager()
+    private var dataManager: Fetchable
     var isLoading = Observable<Bool>(false)
     var error = Observable<NetworkError?>(nil)
     var shouldReloadData = Observable<Bool>(false)
@@ -19,13 +19,13 @@ class WeatherViewModel {
     var weatherFormatted = Observable<WeatherFormatted?>(nil)
     
     //MARK: - Init
-    init(dataManager: DataManager = DataManager(),
+    init(dataManager: Fetchable = DataManager(),
          location: Location = Location()) {
         self.dataManager = dataManager
         self.location = location
     }
     
-    private func formatWeather(_ weather: Weather) -> WeatherFormatted {
+    func formatWeather(_ weather: Weather) -> WeatherFormatted {
         //Format whole data
         let temparature = "\(Int(weather.main?.temparature ?? 0.0)) º"
         var condition = ""
