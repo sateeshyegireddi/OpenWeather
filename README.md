@@ -2,6 +2,8 @@
 
 OpenWeather App is an free-to-use application that will help you plan your time around the weather in a concise and minimalistic manner. Be aware of any precipitation within an hour with a minute precision or plan your activities for the next Sunday morning. OpenWeather App can tell you, which part of the day is going to have a clear sky and light breeze perfect for a run or bike ride for 5 days ahead.
 
+![Video](https://github.com/sateeshyegireddi/OpenWeather/blob/main/Video.gif)
+
 ###  Usage
 
 ##### Home Screen 
